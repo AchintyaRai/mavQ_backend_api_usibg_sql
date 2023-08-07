@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  node_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"  # Map host port 8080 to container port 8080
+    depends_on:
+      - mysql_db  # Ensure that MySQL container is running before starting the Node.js app
+    environment:
+      - DB_HOST=mysql_db
+      - DB_USER=root
+      - DB_PASSWORD=Ash@1617
+      - DB_DATABASE=university
+
+  mysql_db:
+    image: mysql:latest
+    container_name: mysql_db
+    environment:
+      - MYSQL_ROOT_PASSWORD=Ash@1617
+      - MYSQL_DATABASE=university
+    ports:
+      - "3307:3306"  # Map host port 3306 to container port 3306
